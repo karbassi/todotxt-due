@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Stop verbose lines
+TODOTXT_VERBOSE=0
+
+# Get the main action
+action=$1
+shift
+
+[ "$action" = "usage" ] && {
+  echo "  Visualize tasks by due date:"
+  echo "    due"
+  echo ""
+  exit
+}
+
+[ "$action" = "due" ] && {
+    TODAY_LIST=$(_list "$TODO_FILE" "due:$(date +%Y-%m-%d)" $@)
+    if [ -n "${TODAY_LIST}" ]; then
+        echo ""
+        echo "Today $@"
+        echo "=============================="
+        echo ""
+        echo "${TODAY_LIST}"
+    fi
+
+}
+
